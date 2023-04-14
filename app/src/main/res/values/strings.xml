@@ -2,5 +2,10 @@
     <string name="app_name">InterviewDemo</string>
     <string name="search_movie_title">Search Movie By Name</string>
     <string name="search_title">Movie Name</string>
+    <string name="type">Type: </string>
+    <string name="title">Name: </string>
+    <string name="year">Year: </string>
+    <string name="imdbid">ImDBID: </string>
+    <string name="no_data">Movie not found! </string>
     <string name="not_empty">Field can not be empty</string>
 </resources>

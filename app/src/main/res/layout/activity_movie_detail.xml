@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="movieDetail"
+            type="com.assignment.interviewdemo.model.MovieList" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2"
+        tools:context=".main.MovieDetailActivity">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvMainContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dp_10"
+            android:layout_weight="1.5"
+            app:cardCornerRadius="@dimen/dp_8"
+            app:cardElevation="@dimen/dp_5">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivMovieBanner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dp_10"
+                android:src="@drawable/ic_video" />
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="@dimen/dp_10"
+            android:layout_weight="0"
+            android:background="@color/grey" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvMainDetails"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dp_10"
+            android:layout_weight=".5"
+            app:cardCornerRadius="@dimen/dp_8"
+            app:cardElevation="@dimen/dp_5">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dp_10">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{movieDetail.type}"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{movieDetail.year}"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMovieName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@{movieDetail.title}"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/sp_18"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/tvType"
+                    app:layout_constraintTop_toBottomOf="@+id/tvType" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvImdbid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/imdbid"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMovieName" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvimdbid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@{movieDetail.imdbID}"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMovieName" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

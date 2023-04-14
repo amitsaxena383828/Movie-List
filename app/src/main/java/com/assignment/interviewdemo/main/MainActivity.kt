@@ -15,6 +15,9 @@ import com.assignment.interviewdemo.databinding.ActivityMainBinding
 import com.assignment.interviewdemo.model.MovieList
 import com.assignment.interviewdemo.model.Search
 import com.assignment.interviewdemo.retrofitHelper.RequestResult
+import com.assignment.interviewdemo.room.MovieDataBase
+import com.assignment.interviewdemo.room.MovieTable
+import com.assignment.interviewdemo.room.subscribeOnBackground
 import com.assignment.interviewdemo.utils.Utility
 import com.assignment.interviewdemo.viewmodel.MoviesVM
 import com.google.android.material.snackbar.Snackbar
@@ -22,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar
 class MainActivity : AppCompatActivity() {
     private lateinit var moviesVM: MoviesVM
     private lateinit var binding: ActivityMainBinding
+    private lateinit var favMovieList: List<MovieTable>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -48,13 +52,29 @@ class MainActivity : AppCompatActivity() {
             makeApiCall(binding.searchEditFrame.text.toString())
         }
 
+        binding.searchEditFrame.setOnClickListener {
+            binding.btnSearch.visibility = View.VISIBLE
+        }
+
+
+        fetchLocalFavMovie()
+
 
     }
 
+    fun fetchLocalFavMovie() {
+        subscribeOnBackground {
+            favMovieList = MovieDataBase.getInstance(this).movieDao().getAllMovies()
+            Log.d("Amit", "Size=" + favMovieList.size)
+        }
+    }
+
+
     fun makeApiCall(movieName: String) {
-        if (!movieName.trim().isEmpty())
+        if (!movieName.trim().isEmpty()) {
+            binding.loader.visibility = View.VISIBLE
             hitApi(binding.searchEditFrame.text.toString().trim())
-        else {
+        } else {
             Snackbar.make(
                 binding.root,
                 resources.getString(R.string.not_empty),
@@ -67,15 +87,20 @@ class MainActivity : AppCompatActivity() {
 
     fun hitApi(movieName: String) {
         Utility.hideKeyboard(this)
-        binding.loader.visibility = View.VISIBLE
+
         moviesVM = ViewModelProvider(this)[MoviesVM::class.java]
         moviesVM.getData(movieName)
             .observe(this, { response ->
                 if (response.status == RequestResult.Status.SUCCESS) {
                     val movieData = response.data as Search
-                    Log.d("Amit", "Data=${movieData.Search.get(3)}")
-                    binding.tvMainTitle.visibility = View.GONE
-                    setupRecyclerView(movieData.Search)
+                    if (movieData.Response.equals("True")) {
+                        binding.tvMainTitle.visibility = View.GONE
+                        setupRecyclerView(movieData.Search)
+                    } else {
+                        binding.tvMainTitle.text = resources.getString(R.string.no_data)
+                        binding.searchEditFrame.text?.clear()
+                    }
+
                 } else {
                     Toast.makeText(
                         this,
@@ -90,7 +115,24 @@ class MainActivity : AppCompatActivity() {
     private fun setupRecyclerView(moviesData: List<MovieList>) {
         binding.rvMoviesList.layoutManager =
             LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val adapter = MovieListAdapter(this, moviesData)
+        val adapter = MovieListAdapter(this, moviesData, favMovieList)
         binding.rvMoviesList.adapter = adapter
+        binding.btnSearch.visibility = View.GONE
+    }
+
+
+    fun test(list1: List<MovieList>, list2: List<MovieTable>) {
+
+        val sum = list1 + list2
+        Log.d("Amit", "Sum" + sum)
+
+
+        var listTemp = list1.filter { it.imdbID in list2.map { item -> item.imdbID } }
+        Log.d("AmitList", "Check" + listTemp.size)
+        /*for(i in 0 until list1.size){
+            if(list1.get(i).imdbID.equals(listTemp.get(i).imdbID)){
+
+            }
+        }*/
     }
 }

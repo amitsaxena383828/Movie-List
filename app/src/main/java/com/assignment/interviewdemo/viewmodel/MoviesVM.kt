@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.assignment.interviewdemo.constants.UrlConstants
+import com.assignment.interviewdemo.constants.Constants
 import com.assignment.interviewdemo.interfaces.SearchApi
 import com.assignment.interviewdemo.model.Search
 import com.assignment.interviewdemo.retrofitHelper.RequestResult
@@ -28,7 +28,7 @@ class MoviesVM : ViewModel() {
             val call =
                 RetrofitHelper.getInstance().create(SearchApi::class.java)
                     .getMovies(
-                        UrlConstants.BASE_URL + movieName
+                        Constants.BASE_URL + movieName
                     )
             call.enqueue(object : Callback<Search?> {
                 override fun onFailure(call: Call<Search?>, t: Throwable) {
