@@ -6,6 +6,5 @@ data class MovieList(
     val Title: String,
     val Type: String,
     val Year: String,
-    val imdbID: String,
-    val isFav:Int=0
+    val imdbID: String
 )

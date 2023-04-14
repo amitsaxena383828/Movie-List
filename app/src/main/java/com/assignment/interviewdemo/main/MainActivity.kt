@@ -118,21 +118,6 @@ class MainActivity : AppCompatActivity() {
         val adapter = MovieListAdapter(this, moviesData, favMovieList)
         binding.rvMoviesList.adapter = adapter
         binding.btnSearch.visibility = View.GONE
-    }
-
-
-    fun test(list1: List<MovieList>, list2: List<MovieTable>) {
-
-        val sum = list1 + list2
-        Log.d("Amit", "Sum" + sum)
-
-
-        var listTemp = list1.filter { it.imdbID in list2.map { item -> item.imdbID } }
-        Log.d("AmitList", "Check" + listTemp.size)
-        /*for(i in 0 until list1.size){
-            if(list1.get(i).imdbID.equals(listTemp.get(i).imdbID)){
-
-            }
-        }*/
+        binding.searchEditFrame.text?.clear()
     }
 }
