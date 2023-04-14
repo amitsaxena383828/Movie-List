@@ -2,7 +2,6 @@ package com.assignment.interviewdemo.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.assignment.interviewdemo.R
-import com.assignment.interviewdemo.database.DatabaseBuilder
 import com.assignment.interviewdemo.model.MovieList
 import com.bumptech.glide.Glide
 
