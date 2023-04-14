@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">InterviewDemo</string>
+    <string name="search_movie_title">Search Movie By Name</string>
+    <string name="search_title">Movie Name</string>
+    <string name="not_empty">Field can not be empty</string>
+</resources>
