@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity() {
             makeApiCall(binding.searchEditFrame.text.toString())
         }
         binding.searchEditFrame.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH && !binding.searchEditFrame.text.toString()
-                    .trim().isEmpty()
+            if (actionId == EditorInfo.IME_ACTION_SEARCH && binding.searchEditFrame.text.toString()
+                    .trim().isNotEmpty()
             ) {
                 hitApi(binding.searchEditFrame.text.toString().trim())
             } else {
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun fetchLocalFavMovie() {
+    private fun fetchLocalFavMovie() {
         subscribeOnBackground {
             favMovieList = MovieDataBase.getInstance(this).movieDao().getAllMovies()
             Log.d("Amit", "Size=" + favMovieList.size)
@@ -70,8 +70,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun makeApiCall(movieName: String) {
-        if (!movieName.trim().isEmpty()) {
+    private fun makeApiCall(movieName: String) {
+        if (movieName.trim().isNotEmpty()) {
             binding.loader.visibility = View.VISIBLE
             hitApi(binding.searchEditFrame.text.toString().trim())
         } else {
@@ -85,15 +85,15 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun hitApi(movieName: String) {
+    private fun hitApi(movieName: String) {
         Utility.hideKeyboard(this)
 
         moviesVM = ViewModelProvider(this)[MoviesVM::class.java]
         moviesVM.getData(movieName)
-            .observe(this, { response ->
+            .observe(this) { response ->
                 if (response.status == RequestResult.Status.SUCCESS) {
                     val movieData = response.data as Search
-                    if (movieData.Response.equals("True")) {
+                    if (movieData.Response == "True") {
                         binding.tvMainTitle.visibility = View.GONE
                         setupRecyclerView(movieData.Search)
                     } else {
@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG
                     ).show()
                 }
-            })
+            }
         binding.loader.visibility = View.GONE
     }
 

@@ -23,7 +23,7 @@ class MoviesVM : ViewModel() {
         return stringMutableLiveData
     }
 
-    fun loadData(movieName: String) {
+    private fun loadData(movieName: String) {
         viewModelScope.launch {
             val call =
                 RetrofitHelper.getInstance().create(SearchApi::class.java)

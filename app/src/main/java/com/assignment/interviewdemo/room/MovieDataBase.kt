@@ -1,17 +1,9 @@
 package com.assignment.interviewdemo.room
 
 import android.content.Context
-import androidx.lifecycle.Lifecycle
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
-import com.assignment.interviewdemo.model.MovieList
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 @Database(entities = [MovieTable::class], version = 1)
 abstract class MovieDataBase : RoomDatabase() {

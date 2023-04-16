@@ -1,17 +1,16 @@
 package com.assignment.interviewdemo.main
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.assignment.interviewdemo.R
+import androidx.appcompat.app.AppCompatActivity
 import com.assignment.interviewdemo.constants.Constants
 import com.assignment.interviewdemo.databinding.ActivityMovieDetailBinding
 import com.assignment.interviewdemo.model.MovieList
 import com.bumptech.glide.Glide
 
 class MovieDetailActivity : AppCompatActivity() {
-    lateinit var bindingMovieDetail: ActivityMovieDetailBinding
-    lateinit var movieDetail: MovieList
+    private lateinit var bindingMovieDetail: ActivityMovieDetailBinding
+    private lateinit var movieDetail: MovieList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindingMovieDetail = ActivityMovieDetailBinding.inflate(layoutInflater)
@@ -20,7 +19,7 @@ class MovieDetailActivity : AppCompatActivity() {
         setData()
     }
 
-    fun getMovieData() {
+    private fun getMovieData() {
         val jsonString = intent.getStringExtra(Constants.EXTRA_PARAM_MOVIE_DETAIL)
         movieDetail =
             InterviewDemoApplication.getGsonInstance().fromJson(jsonString, MovieList::class.java)

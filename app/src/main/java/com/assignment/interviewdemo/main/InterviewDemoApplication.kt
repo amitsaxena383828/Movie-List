@@ -1,7 +1,6 @@
 package com.assignment.interviewdemo.main
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
 import com.google.gson.Gson
 
 class InterviewDemoApplication: Application() {

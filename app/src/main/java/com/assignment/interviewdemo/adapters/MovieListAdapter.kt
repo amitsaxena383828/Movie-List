@@ -37,7 +37,6 @@ class MovieListAdapter(
         this.context = mContext
         this.moviesData = moviesData
         this.favMovieList = favMovieList
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
